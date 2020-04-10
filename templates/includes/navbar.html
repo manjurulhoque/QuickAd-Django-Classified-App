@@ -1,0 +1,89 @@
+{% load static %}
+<div class="top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-5 col-xs-12">
+
+                <ul class="list-inline">
+                    <li><i class="lni-phone"></i> +0123 456 789</li>
+                    <li><i class="lni-envelope"></i> support@gmail.com</li>
+                </ul>
+
+            </div>
+            <div class="col-lg-5 col-md-7 col-xs-12">
+                <div class="roof-social float-right">
+                    <a class="facebook" href="#"><i class="lni-facebook-filled"></i></a>
+                    <a class="twitter" href="#"><i class="lni-twitter-filled"></i></a>
+                    <a class="instagram" href="#"><i class="lni-instagram-filled"></i></a>
+                    <a class="linkedin" href="#"><i class="lni-linkedin-fill"></i></a>
+                    <a class="google" href="#"><i class="lni-google-plus"></i></a>
+                </div>
+                <div class="header-top-right float-right">
+                    <a href="login.html" class="header-top-button"><i class="lni-lock"></i> Log In</a> |
+                    <a href="register.html" class="header-top-button"><i class="lni-pencil"></i> Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg bg-white fixed-top scrolling-navbar">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+                    aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="lni-menu"></span>
+                <span class="lni-menu"></span>
+                <span class="lni-menu"></span>
+            </button>
+            <a href="{% url 'core:home' %}" class="navbar-brand">
+                <img src="{% static 'assets/img/logo.png' %}" alt="">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="main-navbar">
+            <ul class="navbar-nav mr-auto w-100 justify-content-center">
+                <li class="nav-item acive">
+                    <a class="nav-link" href="{% url 'core:home' %}">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Categories
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Listings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+            <div class="post-btn">
+                <a class="btn btn-common" href="#"><i class="lni-pencil-alt"></i> Post an Ad</a>
+            </div>
+        </div>
+    </div>
+
+    <ul class="mobile-menu">
+        <li>
+            <a href="{% url 'core:home' %}">Home</a>
+        </li>
+        <li>
+            <a href="#">Categories</a>
+        </li>
+        <li>
+            <a href="#">Listings</a>
+        </li>
+        <li>
+            <a href="#">Contact Us</a>
+        </li>
+    </ul>
+
+</nav>
