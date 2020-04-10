@@ -20,7 +20,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=20, blank=True, verbose_name="Contact number")
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "gender"]
+    REQUIRED_FIELDS = ["username"]
 
     def __unicode__(self):
         return self.email

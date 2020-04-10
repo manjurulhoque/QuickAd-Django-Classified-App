@@ -5,5 +5,5 @@ from .views import *
 app_name = "core"
 
 urlpatterns = [
-    path('', index, name="home"),
+    path('', IndexView.as_view(), name="home"),
 ]
