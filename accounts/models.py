@@ -17,6 +17,7 @@ class User(AbstractUser):
                                   'unique': "A user with that email already exists.",
                               })
     about = models.TextField(blank=True)
+    phone = models.CharField(max_length=20, blank=True, verbose_name="Contact number")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "gender"]
