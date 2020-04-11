@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="page-header" style="background: url(assets/img/banner1.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-wrapper">
+                        <h2 class="product-title">Post you Ads</h2>
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home /</a></li>
+                            <li class="current">Post you Ads</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-3 page-sidebar">
+                    <aside>
+                        <div class="sidebar-box">
+                            <div class="user">
+                                <figure>
+                                    <a href="#"><img src="assets/img/author/img1.jpg" alt=""></a>
+                                </figure>
+                                <div class="usercontent">
+                                    <h3>Hello William!</h3>
+                                    <h4>Administrator</h4>
+                                </div>
+                            </div>
+                            <nav class="navdashboard">
+                                <ul>
+                                    <li>
+                                        <a href="dashboard.html">
+                                            <i class="lni-dashboard"></i>
+                                            <span>Dashboard</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="account-profile-setting.html">
+                                            <i class="lni-cog"></i>
+                                            <span>Profile Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="account-myads.html">
+                                            <i class="lni-layers"></i>
+                                            <span>My Ads</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="lni-envelope"></i>
+                                            <span>Offers/Messages</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="payments.html">
+                                            <i class="lni-wallet"></i>
+                                            <span>Payments</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="account-favourite-ads.html">
+                                            <i class="lni-heart"></i>
+                                            <span>My Favourites</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="account-profile-setting.html">
+                                            <i class="lni-star"></i>
+                                            <span>Privacy Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="lni-enter"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </aside>
+                </div>
+
+                <div class="col-sm-12 col-md-8 col-lg-9">
+                    <div class="row page-content">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            {% if form.errors %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <form action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="inner-box">
+                                    <div class="dashboard-box">
+                                        <h2 class="dashbord-title">Ad Detail</h2>
+                                    </div>
+                                    <div class="dashboard-wrapper">
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Title</label>
+                                            <input class="form-control input-md" name="title" placeholder="Title"
+                                                   type="text" required value="{{ form.title.value|default:'' }}">
+                                            {% if 'title' in form.errors %}
+                                                {% for error in form.title.errors %}
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <a href="#" class="close" data-dismiss="alert"
+                                                           aria-label="close">&times;</a>
+                                                        <strong>{{ error|escape }}</strong>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group mb-3 tg-inputwithicon">
+                                            <label class="control-label">Categories</label>
+                                            <div class="tg-select form-control">
+                                                <select name="category" required>
+                                                    <option value="" selected>Select Category</option>
+                                                    {% for category in categories %}
+                                                        <option value="{{ category.id }}">{{ category.title }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            {% if 'category' in form.errors %}
+                                                {% for error in form.category.errors %}
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <a href="#" class="close" data-dismiss="alert"
+                                                           aria-label="close">&times;</a>
+                                                        <strong>{{ error|escape }}</strong>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Price</label>
+                                            <input class="form-control input-md" name="price"
+                                                   placeholder="Your Price"
+                                                   type="number" required value="{{ form.price.value|default:'' }}">
+                                            {% if 'price' in form.errors %}
+                                                {% for error in form.price.errors %}
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <a href="#" class="close" data-dismiss="alert"
+                                                           aria-label="close">&times;</a>
+                                                        <strong>{{ error|escape }}</strong>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group md-3">
+                                            <section id="editor">
+                                                <textarea id="summernote" required
+                                                          name="description">{{ form.description.value|default:'' }}</textarea>
+                                            </section>
+                                            {% if 'description' in form.errors %}
+                                                {% for error in form.description.errors %}
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <a href="#" class="close" data-dismiss="alert"
+                                                           aria-label="close">&times;</a>
+                                                        <strong>{{ error|escape }}</strong>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <label class="tg-fileuploadlabel" for="tg-photogallery">
+                                            <span>Drop files anywhere to upload</span>
+                                            <span>Or</span>
+                                            <span class="btn btn-common">Select Files</span>
+                                            <span>Maximum upload file size: 1MB</span>
+                                            <input id="tg-photogallery" required class="tg-fileinput" multiple
+                                                   type="file"
+                                                   accept="image/*"
+                                                   name="image">
+                                        </label>
+                                    </div>
+                                    <button class="btn btn-common" type="submit">Post Ad</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+        $('#summernote').summernote({
+            height: 250, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+            focus: false // set focus to editable area after initializing summernote
+        });
+    </script>
+
+{% endblock %}
