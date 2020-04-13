@@ -25,6 +25,11 @@
                         <a href="{% url 'accounts:register' %}" class="header-top-button"><i class="lni-pencil"></i>
                             Register</a>
                     </div>
+                {% else %}
+                    <div class="header-top-right float-right">
+                        <a href="{% url 'accounts:logout' %}" class="header-top-button">
+                            <i class="lni-lock"></i> Logout</a>
+                    </div>
                 {% endif %}
             </div>
         </div>
@@ -63,11 +68,17 @@
                         Listings
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Contact
-                    </a>
-                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            Welcome, {{ request.user.username }}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="single-post.html">Blog Details</a>
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
             <div class="post-btn">
                 <a class="btn btn-common" href="{% url 'core:crate.ad' %}">

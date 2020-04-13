@@ -27,6 +27,10 @@ class AdDetailsView(DetailView):
     model = Ad
     slug_field = "id"
     slug_url_kwarg = "ad_id"
+    context_object_name = "ad"
+
+    def get_queryset(self):
+        return self.model.objects.select_related("category").select_related("user").all()
 
 
 class AdCreateView(CustomLoginRequiredMixin, CreateView):
