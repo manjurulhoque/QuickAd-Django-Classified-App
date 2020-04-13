@@ -22,9 +22,15 @@ class Ad(models.Model):
     title = models.CharField(max_length=255, verbose_name="Ad title")
     price = models.IntegerField(verbose_name="Ad price")
     description = models.TextField(verbose_name="Ad description")
+    featured = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+
+    @property
+    def first_image_or_default(self):
+        return self.ad_images.all()[0].image.url if self.ad_images.count() > 0 else "/media/ad_images/default.jpg"
 
 
 class AdImage(models.Model):
