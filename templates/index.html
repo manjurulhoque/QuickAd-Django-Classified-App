@@ -10,41 +10,26 @@
                     <div class="contents">
                         <h1 class="head-title">Welcome to The Largest <span class="year">Marketplace</span></h1>
                         <p>Buy and sell everything from used cars to mobile phones and computers, or search for
-                            property, jobs and more</p>
+                            property and more</p>
                         <div class="search-bar">
                             <div class="search-inner">
                                 <form class="search-form">
                                     <div class="form-group">
-                                        <input type="text" name="customword" class="form-control"
+                                        <input type="text" name="word" class="form-control"
                                                placeholder="What are you looking for?">
                                     </div>
-                                    <div class="form-group inputwithicon">
-                                        <div class="select">
-                                            <select>
-                                                <option value="none">Locations</option>
-                                                <option value="none">New York</option>
-                                                <option value="none">California</option>
-                                                <option value="none">Washington</option>
-                                                <option value="none">Birmingham</option>
-                                                <option value="none">Chicago</option>
-                                                <option value="none">Phoenix</option>
-                                            </select>
-                                        </div>
-                                        <i class="lni-target"></i>
+                                    <div class="form-group">
+                                        <input type="text" name="location" class="form-control"
+                                               placeholder="Location">
                                     </div>
                                     <div class="form-group inputwithicon">
                                         <div class="select">
                                             <select>
-                                                <option value="none">Select Catagory</option>
-                                                <option value="none">Jobs</option>
-                                                <option value="none">Electronics</option>
-                                                <option value="none">Mobile</option>
-                                                <option value="none">Training</option>
-                                                <option value="none">Pets</option>
-                                                <option value="none">Real Estate</option>
-                                                <option value="none">Services</option>
-                                                <option value="none">Training</option>
-                                                <option value="none">Vehicles</option>
+                                                <option value="" selected name="category">Select Catagory</option>
+
+                                                {% for category in categories %}
+                                                    <option value="{{ category.id }}">{{ category.title }}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
                                         <i class="lni-menu"></i>
@@ -98,7 +83,8 @@
                                     <span class="bg-green"><i class="lni-heart"></i></span>
                                     <span><i class="lni-bookmark"></i></span>
                                 </div>
-                                <a href="#"><img class="img-fluid" style="width: 350px; max-height: 225px" src="{{ ad.first_image_or_default }}" alt=""></a>
+                                <a href="#"><img class="img-fluid" style="width: 350px; max-height: 225px"
+                                                 src="{{ ad.first_image_or_default }}" alt=""></a>
                             </figure>
                             <div class="feature-content">
                                 <h4><a href="{% url 'core:ad.details' ad.id %}">{{ ad.title }}</a></h4>

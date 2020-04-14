@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div id="hero-area">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-9 col-xs-12 text-center">
+                    <div class="contents">
+                        <h1 class="head-title"><span class="year">Categories</span></h1>
+                        <p>List of all categories</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="categories">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-md-12 col-xs-12">
+                    <div id="categories-icon-slider" class="categories-wrapper owl-carousel owl-theme">
+                        {% for category in categories %}
+                            <div class="item">
+                                <a href="#">
+                                    <div class="category-icon-item">
+                                        <div class="icon-box">
+                                            <div class="icon">
+                                                <img src="{{ category.image.url }}" alt="">
+                                            </div>
+                                            <h4>{{ category.title }}</h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
