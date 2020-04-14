@@ -8,10 +8,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="breadcrumb-wrapper">
-                        <h2 class="product-title">Post you Ads</h2>
+                        <h2 class="product-title">Update your ad</h2>
                         <ol class="breadcrumb">
                             <li><a href="#">Home /</a></li>
-                            <li class="current">Post you Ads</li>
+                            <li class="current">Update your ad</li>
                         </ol>
                     </div>
                 </div>
@@ -62,7 +62,9 @@
                                                 <select name="category" required>
                                                     <option value="" selected>Select Category</option>
                                                     {% for category in categories %}
-                                                        <option value="{{ category.id }}">{{ category.title }}</option>
+                                                        <option {% if form.category.value == category.id %}
+                                                            selected {% endif %}
+                                                            value="{{ category.id }}">{{ category.title }}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
@@ -94,6 +96,7 @@
                                         <div class="form-group md-3">
                                             <label class="control-label">Description</label>
                                             <textarea required class="form-control input-md"
+                                                      rows="5"
                                                       name="description">{{ form.description.value|default:'' }}</textarea>
 
                                             {% if 'description' in form.errors %}
@@ -106,18 +109,19 @@
                                                 {% endfor %}
                                             {% endif %}
                                         </div>
+                                        <p>Note: If you update new images, all previous images will be deleted</p>
                                         <label class="tg-fileuploadlabel" for="tg-photogallery">
                                             <span>Drop files anywhere to upload</span>
                                             <span>Or</span>
                                             <span class="btn btn-common">Select Files</span>
                                             <span>Maximum upload file size: 1MB</span>
-                                            <input id="tg-photogallery" required class="tg-fileinput" multiple
+                                            <input id="tg-photogallery" class="tg-fileinput" multiple
                                                    type="file"
                                                    accept="image/*"
                                                    name="image">
                                         </label>
                                     </div>
-                                    <button class="btn btn-common" type="submit">Post Ad</button>
+                                    <button class="btn btn-common" type="submit">Update Ad</button>
                                 </div>
                             </form>
                         </div>
@@ -126,18 +130,5 @@
             </div>
         </div>
     </div>
-
-{% endblock %}
-
-{% block scripts %}
-
-    <script type="text/javascript">
-        $('#summernote').summernote({
-            height: 250, // set editor height
-            minHeight: null, // set minimum height of editor
-            maxHeight: null, // set maximum height of editor
-            focus: false // set focus to editable area after initializing summernote
-        });
-    </script>
 
 {% endblock %}

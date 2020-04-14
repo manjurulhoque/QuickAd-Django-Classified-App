@@ -23,6 +23,7 @@ class Ad(models.Model):
     price = models.IntegerField(verbose_name="Ad price")
     description = models.TextField(verbose_name="Ad description")
     featured = models.BooleanField(default=False)
+    status = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -31,6 +32,17 @@ class Ad(models.Model):
     @property
     def first_image_or_default(self):
         return self.ad_images.all()[0].image.url if self.ad_images.count() > 0 else "/media/ad_images/default.jpg"
+
+    @property
+    def ad_status(self):
+        if self.status == 1:
+            return 'active'
+        elif self.status == 2:
+            return 'inactive'
+        elif self.status == 3:
+            return 'sold'
+        else:
+            return 'deleted'
 
 
 class AdImage(models.Model):

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="page-header" style="background: url('{% static 'assets/img/banner1.jpg' %}');">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-wrapper">
+                        <h2 class="product-title">Dashboard</h2>
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home /</a></li>
+                            <li class="current">Dashboard</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="content" class="section-padding">
+        <div class="container">
+            <div class="row">
+                {% include 'includes/sidebar.html' %}
+
+                <div class="col-sm-12 col-md-8 col-lg-9">
+                    <div class="page-content">
+                        {% if ads.count > 0 %}
+                            <div class="inner-box">
+                                <div class="dashboard-box">
+                                    <h2 class="dashbord-title">Dashboard</h2>
+                                </div>
+                                <div class="dashboard-wrapper">
+                                    <div class="dashboard-sections">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+                                                <div class="dashboardbox">
+                                                    <div class="icon"><i class="lni-write"></i></div>
+                                                    <div class="contentbox">
+                                                        <h2><a href="#">Total Ad Posted</a></h2>
+                                                        <h3>{{ total_ads }} Add Posted</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+                                                <div class="dashboardbox">
+                                                    <div class="icon"><i class="lni-add-files"></i></div>
+                                                    <div class="contentbox">
+                                                        <h2><a href="#">Featured Ads</a></h2>
+                                                        <h3>{{ featured_ads }} Add Posted</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+                                                <div class="dashboardbox">
+                                                    <div class="icon"><i class="lni-support"></i></div>
+                                                    <div class="contentbox">
+                                                        <h2><a href="#">Offers / Messages</a></h2>
+                                                        <h3>0 Messages</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-responsive dashboardtable tablemyads">
+                                        <thead>
+                                        <tr>
+                                            <th>Photo</th>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Ad Status</th>
+                                            <th>Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for ad in ads %}
+                                            <tr data-category="{{ ad.ad_status }}">
+                                                <td class="photo">
+                                                    <img class="img-fluid" src="{{ ad.first_image_or_default }}"
+                                                         alt="">
+                                                </td>
+                                                <td data-title="Title">
+                                                    <h3>{{ ad.title }}</h3>
+                                                    <span>Ad ID: ng3D5hAMHPajQrM</span>
+                                                </td>
+                                                <td data-title="Category">
+                                                    <span class="adcategories">{{ ad.category.title }}</span>
+                                                </td>
+                                                <td data-title="Ad Status">
+                                                    <span class="adstatus adstatusactive">{{ ad.ad_status }}</span>
+                                                </td>
+                                                <td data-title="Price">
+                                                    <h3>${{ ad.price }}</h3>
+                                                </td>
+                                                <td data-title="Action">
+                                                    <div class="btns-actions">
+                                                        <a class="btn-action btn-view"
+                                                           href="{% url 'ads:ad.details' ad.id %}">
+                                                            <i class="lni-eye"></i>
+                                                        </a>
+                                                        <a class="btn-action btn-edit"
+                                                           href="{% url 'ads:update.ad' ad.id %}">
+                                                            <i class="lni-pencil"></i>
+                                                        </a>
+                                                        <a class="btn-action btn-delete" href="{% url 'ads:delete.ad' ad.id %}">
+                                                            <i class="lni-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% else %}
+                            <h2 class="text-center">You don't have any ad</h2>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

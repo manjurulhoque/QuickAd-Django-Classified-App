@@ -1,8 +1,9 @@
-from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
-from core.forms import *
+from .forms import *
 from core.mixins import CustomLoginRequiredMixin
 from core.models import *
 
@@ -51,3 +52,61 @@ class AdCreateView(CustomLoginRequiredMixin, CreateView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.form_invalid(form)
+
+
+class AdUpdateView(CustomLoginRequiredMixin, UpdateView):
+    model = Ad
+    template_name = "ads/edit.html"
+    context_object_name = "ad"
+    slug_field = "id"
+    slug_url_kwarg = "ad_id"
+    form_class = AdUpdateForm
+    success_url = reverse_lazy("users:dashboard")
+
+    def get_queryset(self):
+        return self.model.objects.select_related("category").filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(AdUpdateView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
+    def get_form_kwargs(self):
+        """Return the keyword arguments for instantiating the form."""
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
+
+    def form_valid(self, form):
+        ad = form.save(commit=True)
+        files = self.request.FILES.getlist('image')
+        if len(files):
+            AdImage.objects.filter(ad=self.object).delete()
+            for image in files:
+                photo = AdImage(ad=self.object, image=image)
+                photo.save()
+        messages.success(self.request, "Ad successfully updated")
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_object(self, queryset=None):
+        obj = self.model.objects.get(id=self.kwargs['ad_id'])
+        if obj is None:
+            raise Http404("Ad doesn't exists")
+        return obj
+
+
+class AdDeleteView(DeleteView):
+    model = Ad
+    slug_field = "id"
+    slug_url_kwarg = "ad_id"
+    success_url = reverse_lazy('users:dashboard')
+
+    def get_queryset(self):
+        return self.model.objects.select_related("category").filter(user=self.request.user)
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(AdDeleteView, self).get_object()
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj
