@@ -83,11 +83,13 @@
                                     <span class="bg-green"><i class="lni-heart"></i></span>
                                     <span><i class="lni-bookmark"></i></span>
                                 </div>
-                                <a href="#"><img class="img-fluid" style="width: 350px; max-height: 225px"
-                                                 src="{{ ad.first_image_or_default }}" alt=""></a>
+                                <a href="#">
+                                    <img class="img-fluid" style="width: 350px; max-height: 225px"
+                                                 src="{{ ad.first_image_or_default }}" alt="">
+                                </a>
                             </figure>
                             <div class="feature-content">
-                                <h4><a href="{% url 'core:ad.details' ad.id %}">{{ ad.title }}</a></h4>
+                                <h4><a href="{% url 'ads:ad.details' ad.id %}">{{ ad.title }}</a></h4>
                                 <div class="meta-tag">
                                     <span>
                                         <a href="#"><i class="lni-user"></i> {{ ad.user.username }}</a>
@@ -102,7 +104,7 @@
                                 <p class="dsc" style="min-width: 320px; min-height: 80px">{{ ad.description|safe }}</p>
                                 <div class="listing-bottom">
                                     <h3 class="price float-left">${{ ad.price }}</h3>
-                                    <a href="{% url 'core:ad.details' ad.id %}" class="btn btn-common float-right">View
+                                    <a href="{% url 'ads:ad.details' ad.id %}" class="btn btn-common float-right">View
                                         Details</a>
                                 </div>
                             </div>

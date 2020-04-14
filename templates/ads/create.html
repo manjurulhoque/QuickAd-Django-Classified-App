@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -26,11 +27,13 @@
                         <div class="sidebar-box">
                             <div class="user">
                                 <figure>
-                                    <a href="#"><img src="assets/img/author/img1.jpg" alt=""></a>
+                                    <a href="#">
+                                        <img class="img-fluid" src="{% static 'assets/img/avatar.png' %}" alt="">
+                                    </a>
                                 </figure>
                                 <div class="usercontent">
-                                    <h3>Hello William!</h3>
-                                    <h4>Administrator</h4>
+                                    <h3>Hello {{ request.user.username }}!</h3>
+                                    <h4>User</h4>
                                 </div>
                             </div>
                             <nav class="navdashboard">
