@@ -20,10 +20,7 @@
         </div>
     </div>
 
-    <div id="test"></div>
-
-
-    <div class="main-container section-padding">
+    <div class="main-container section-padding" id="app">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-12 col-xs-12 page-sidebar">
@@ -40,46 +37,10 @@
                         <div class="widget categories">
                             <h4 class="widget-title">All Categories</h4>
                             <ul class="categories-list">
-                                <li>
-                                    <a href="#">
-                                        <i class="lni-dinner"></i>
-                                        Hotel & Travels <span class="category-counter">(5)</span>
-                                    </a>
-                                </li>
-                                <li>
+                                <li v-for="category in categories">
                                     <a href="#">
                                         <i class="lni-control-panel"></i>
-                                        Services <span class="category-counter">(8)</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="lni-github"></i>
-                                        Pets <span class="category-counter">(2)</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="lni-coffee-cup"></i>
-                                        Restaurants <span class="category-counter">(3)</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="lni-home"></i>
-                                        Real Estate <span class="category-counter">(4)</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="lni-pencil"></i>
-                                        Jobs <span class="category-counter">(5)</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="lni-display"></i>
-                                        Electronics <span class="category-counter">(9)</span>
+                                        [[ category.title ]] <span class="category-counter">([[ category.total_ads ]])</span>
                                     </a>
                                 </li>
                             </ul>
@@ -236,15 +197,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 
-    <script>
+    <script type='text/javascript'>
         document.addEventListener('DOMContentLoaded', function () {
             new Vue({
-                el: '#test',
+                delimiters: ['[[', ']]'],
+                el: '#app',
                 data: {
-                    m1: "You got to let me know"
+                    categories: []
                 },
                 created() {
-                    console.log("Created");
+                    fetch("/api/categories/")
+                        .then(res => res.json())
+                        .then(res => {
+                            this.categories = res;
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
                 }
             })
         })
