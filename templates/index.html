@@ -101,7 +101,7 @@
                                         <a href="#"><i class="lni-tag"></i> {{ ad.category.title }}</a>
                                     </span>
                                 </div>
-                                <p class="dsc" style="min-width: 320px; min-height: 80px">{{ ad.description|safe }}</p>
+                                <p class="dsc" style="min-width: 320px; min-height: 80px">{{ ad.description|safe|truncatechars:110 }}</p>
                                 <div class="listing-bottom">
                                     <h3 class="price float-left">${{ ad.price }}</h3>
                                     <a href="{% url 'ads:ad.details' ad.id %}" class="btn btn-common float-right">View

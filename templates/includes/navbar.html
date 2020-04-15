@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{% url 'core:listings' %}">
                         Listings
                     </a>
                 </li>
@@ -75,7 +75,7 @@
                             Welcome, {{ request.user.username }}
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="single-post.html">Blog Details</a>
+                            <a class="dropdown-item" href="{% url 'users:dashboard' %}">Dashboard</a>
                         </div>
                     </li>
                 {% endif %}
