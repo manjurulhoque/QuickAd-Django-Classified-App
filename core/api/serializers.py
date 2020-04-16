@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django.template.defaultfilters import truncatechars
+from django.utils.html import strip_tags
 
 from ..models import *
 
@@ -23,7 +25,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 class AdSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    description = serializers.SerializerMethodField()
+    first_image_or_default = serializers.ReadOnlyField()
 
     class Meta:
         model = Ad
         fields = "__all__"
+
+    def get_description(self, obj):
+        return truncatechars(strip_tags(obj.description), 100)

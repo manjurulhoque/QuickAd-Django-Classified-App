@@ -87,89 +87,84 @@
                         <div class="tab-content">
                             <div id="grid-view" class="tab-pane fade active show">
                                 <div class="row">
-                                    {% for ad in ads %}
-                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                            <div class="featured-box">
-                                                <figure>
-                                                    <div class="icon">
-                                                        <span class="bg-green"><i class="lni-heart"></i></span>
-                                                        <span><i class="lni-bookmark"></i></span>
-                                                    </div>
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                             src="{{ ad.first_image_or_default }}"
-                                                             alt="">
-                                                    </a>
-                                                </figure>
-                                                <div class="feature-content">
-                                                    <h4>
-                                                        <a href="{% url 'ads:ad.details' ad.id %}">{{ ad.title }}</a>
-                                                    </h4>
-                                                    <div class="meta-tag">
-                                                        <span>
-                                                            <a href="#"><i class="lni-user"></i> John Smith</a>
-                                                        </span>
-                                                        <span>
-                                                            <a href="#"><i class="lni-map-marker"></i> New York, US</a>
-                                                        </span>
-                                                        <span>
-                                                            <a href="#"><i class="lni-tag"></i> {{ ad.category.title }}</a>
-                                                        </span>
-                                                    </div>
-                                                    <p class="dsc">{{ ad.description|safe|truncatechars:110 }}</p>
-                                                    <div class="listing-bottom">
-                                                        <h3 class="price float-left">${{ ad.price }}</h3>
-                                                        <a href="{% url 'ads:ad.details' ad.id %}"
-                                                           class="btn btn-common float-right">View
-                                                            Details</a>
-                                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" v-for="ad in ads">
+                                        <div class="featured-box">
+                                            <figure>
+                                                <div class="icon">
+                                                    <span class="bg-green"><i class="lni-heart"></i></span>
+                                                    <span><i class="lni-bookmark"></i></span>
+                                                </div>
+                                                <a href="#">
+                                                    <img class="img-fluid"
+                                                            :src="[[ ad.first_image_or_default ]]"
+                                                            alt="">
+                                                </a>
+                                            </figure>
+                                            <div class="feature-content">
+                                                <h4>
+                                                    <a href="#">[[ ad.title ]]</a>
+                                                </h4>
+                                                <div class="meta-tag">
+                                                    <span>
+                                                        <a href="#"><i class="lni-user"></i> [[ ad.user.username ]]</a>
+                                                    </span>
+                                                    <span>
+                                                        <a href="#"><i class="lni-map-marker"></i> New York, US</a>
+                                                    </span>
+                                                    <span>
+                                                        <a href="#"><i class="lni-tag"></i> [[ ad.category.title ]]</a>
+                                                    </span>
+                                                </div>
+                                                <p class="dsc">[[ ad.description ]]</p>
+                                                <div class="listing-bottom">
+                                                    <h3 class="price float-left">$[[ ad.price ]]</h3>
+                                                    <a href="" class="btn btn-common float-right">View
+                                                        Details</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                             <div id="list-view" class="tab-pane fade">
                                 <div class="row">
-                                    {% for ad in ads %}
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                            <div class="featured-box">
-                                                <figure>
-                                                    <div class="icon">
-                                                        <span class="bg-green"><i class="lni-heart"></i></span>
-                                                        <span><i class="lni-bookmark"></i></span>
-                                                    </div>
-                                                    <a href="#">
-                                                        <img class="img-fluid"
-                                                             src="{{ ad.first_image_or_default }}"
-                                                             alt="">
-                                                    </a>
-                                                </figure>
-                                                <div class="feature-content">
-                                                    <h4>
-                                                        <a href="{% url 'ads:ad.details' ad.id %}">{{ ad.title }}</a>
-                                                    </h4>
-                                                    <div class="meta-tag">
-                                                        <span>
-                                                            <a href="#"><i class="lni-user"></i> {{ ad.user.username }}</a>
-                                                        </span>
-                                                        <span>
-                                                            <a href="#"><i class="lni-map-marker"></i> New York, US</a>
-                                                        </span>
-                                                        <span>
-                                                            <a href="#"><i class="lni-tag"></i> {{ ad.category.title }}</a>
-                                                        </span>
-                                                    </div>
-                                                    <p class="dsc">{{ ad.description|safe|truncatechars:110 }}</p>
-                                                    <div class="listing-bottom">
-                                                        <h3 class="price float-left">${{ ad.price }}</h3>
-                                                        <a href="{% url 'ads:ad.details' ad.id %}"
-                                                           class="btn btn-common float-right">View Details</a>
-                                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" v-for="ad in ads">
+                                        <div class="featured-box">
+                                            <figure>
+                                                <div class="icon">
+                                                    <span class="bg-green"><i class="lni-heart"></i></span>
+                                                    <span><i class="lni-bookmark"></i></span>
+                                                </div>
+                                                <a href="#">
+                                                    <img class="img-fluid"
+                                                            :src="[[ ad.first_image_or_default ]]"
+                                                            alt="">
+                                                </a>
+                                            </figure>
+                                            <div class="feature-content">
+                                                <h4>
+                                                    <a href="">[[ ad.title ]]</a>
+                                                </h4>
+                                                <div class="meta-tag">
+                                                    <span>
+                                                        <a href="#"><i class="lni-user"></i> [[ ad.user.username ]]</a>
+                                                    </span>
+                                                    <span>
+                                                        <a href="#"><i class="lni-map-marker"></i> New York, US</a>
+                                                    </span>
+                                                    <span>
+                                                        <a href="#"><i class="lni-tag"></i> [[ ad.category.title ]]</a>
+                                                    </span>
+                                                </div>
+                                                <p class="dsc">[[ ad.description ]]</p>
+                                                <div class="listing-bottom">
+                                                    <h3 class="price float-left">$[[ ad.price ]]</h3>
+                                                    <a href="#"
+                                                        class="btn btn-common float-right">View Details</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -203,13 +198,26 @@
                 delimiters: ['[[', ']]'],
                 el: '#app',
                 data: {
-                    categories: []
+                    categories: [],
+                    ads: [],
                 },
                 created() {
+                    // fetch categories
                     fetch("/api/categories/")
                         .then(res => res.json())
                         .then(res => {
                             this.categories = res;
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                    
+                    // fetch ads
+                    fetch("/api/ads/")
+                        .then(res => res.json())
+                        .then(res => {
+                            this.ads = res;
+                            console.log(this.ads);
                         })
                         .catch(err => {
                             console.log(err);
