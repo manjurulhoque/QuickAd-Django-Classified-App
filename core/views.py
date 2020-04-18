@@ -1,5 +1,6 @@
 from django.views.generic import ListView
 
+from ads.documents import AdDocument
 from core.models import *
 
 

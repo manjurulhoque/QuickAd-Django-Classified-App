@@ -16,6 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
     'django_filters',
     'core',
     'ads',
@@ -96,3 +98,26 @@ AUTH_USER_MODEL = "accounts.User"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9200'
+    }
+}
+
+ES_CONNECTIONS = {
+    'default': {
+        'hosts': ['http://localhost:9200'],
+    }
+}
+
+## Project: https://github.com/adamwattis/elasticsearch-example/
+ES_DEFAULT_BATCH_SIZE = 1000
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}

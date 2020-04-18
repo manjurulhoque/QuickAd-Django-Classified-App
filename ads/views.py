@@ -2,10 +2,17 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django_elasticsearch_dsl_drf.constants import LOOKUP_FILTER_RANGE, LOOKUP_QUERY_IN, LOOKUP_QUERY_GT, \
+    LOOKUP_QUERY_GTE, LOOKUP_QUERY_LT, LOOKUP_QUERY_LTE
+from django_elasticsearch_dsl_drf.filter_backends import DefaultOrderingFilterBackend, FilteringFilterBackend, \
+    SuggesterFilterBackend, CompoundSearchFilterBackend
+from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 
-from .forms import *
 from core.mixins import CustomLoginRequiredMixin
 from core.models import *
+from .documents import AdDocument
+from .forms import *
+from .serializers import AdDocumentSerializer
 
 
 class AdDetailsView(DetailView):
@@ -110,3 +117,50 @@ class AdDeleteView(DeleteView):
         if not obj.user == self.request.user:
             raise Http404
         return obj
+
+
+class AdViewSet(DocumentViewSet):
+    document = AdDocument
+    serializer_class = AdDocumentSerializer
+    ordering = ('id',)
+    lookup_field = 'id'
+
+    filter_backends = [
+        DefaultOrderingFilterBackend,
+        FilteringFilterBackend,
+        CompoundSearchFilterBackend,
+        SuggesterFilterBackend,
+    ]
+
+    search_fields = (
+        'title',
+    )
+
+    filter_fields = {
+        'id': {
+            'field': 'id',
+            'lookups': [
+                LOOKUP_FILTER_RANGE,
+                LOOKUP_QUERY_IN,
+                LOOKUP_QUERY_GT,
+                LOOKUP_QUERY_GTE,
+                LOOKUP_QUERY_LT,
+                LOOKUP_QUERY_LTE,
+            ],
+        },
+        'title': 'title.raw',
+        'description': 'description.raw',
+    }
+
+    ordering_fields = {
+        'id': 'id',
+    }
+
+    # suggester_fields = {
+    #     'title_suggest': {
+    #         'field': 'title.suggestz',
+    #         'suggesters': [
+    #             SUGGESTER_COMPLETION,
+    #         ],
+    #     },
+    # }
