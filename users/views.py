@@ -18,3 +18,7 @@ class DashboardView(CustomLoginRequiredMixin, TemplateView):
         context['total_ads'] = total_ads
         context['featured_ads'] = featured_ads
         return context
+
+
+class PrivacySettingsView(CustomLoginRequiredMixin, TemplateView):
+    template_name = "users/settings.html"

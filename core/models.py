@@ -1,4 +1,5 @@
 from django.db import models
+from taggit.managers import TaggableManager
 
 from accounts.models import User
 
@@ -25,6 +26,8 @@ class Ad(models.Model):
     featured = models.BooleanField(default=False)
     status = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now=True)
+
+    tags = TaggableManager()
 
     def __str__(self):
         return self.title
