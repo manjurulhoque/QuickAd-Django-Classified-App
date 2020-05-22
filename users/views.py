@@ -1,5 +1,4 @@
 import copy
-
 from django.views.generic import TemplateView
 
 from core.mixins import CustomLoginRequiredMixin
