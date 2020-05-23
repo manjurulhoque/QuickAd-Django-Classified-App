@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'django_extensions',
     'taggit',
     'rest_framework',
     'django_filters',
@@ -108,4 +109,4 @@ MEDIA_URL = '/media/'
 
 TAGGIT_CASE_INSENSITIVE = False
 
-CORS_ORIGIN_WHITELIST = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
