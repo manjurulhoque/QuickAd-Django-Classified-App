@@ -225,7 +225,7 @@
                         });{% endcomment %}
 
                     // fetch ads
-                    axios.get(`${this.domain}/api/ads/`)
+                    axios.get(`/api/ads/`)
                         .then((res) => {
                             this.ads = res.data;
                             console.log(this.ads);
