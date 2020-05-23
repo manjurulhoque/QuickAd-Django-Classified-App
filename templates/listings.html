@@ -40,7 +40,8 @@
                                 <li v-for="category in categories">
                                     <a href="#">
                                         <i class="lni-control-panel"></i>
-                                        [[ category.title ]] <span class="category-counter">([[ category.total_ads ]])</span>
+                                        [[ category.title ]] <span
+                                            class="category-counter">([[ category.total_ads ]])</span>
                                     </a>
                                 </li>
                             </ul>
@@ -96,8 +97,8 @@
                                                 </div>
                                                 <a href="#">
                                                     <img class="img-fluid"
-                                                            :src="[[ ad.first_image_or_default ]]"
-                                                            alt="">
+                                                         :src="[[ ad.first_image_or_default ]]"
+                                                         alt="">
                                                 </a>
                                             </figure>
                                             <div class="feature-content">
@@ -137,8 +138,8 @@
                                                 </div>
                                                 <a href="#">
                                                     <img class="img-fluid"
-                                                            :src="[[ ad.first_image_or_default ]]"
-                                                            alt="">
+                                                         :src="[[ ad.first_image_or_default ]]"
+                                                         alt="">
                                                 </a>
                                             </figure>
                                             <div class="feature-content">
@@ -160,7 +161,7 @@
                                                 <div class="listing-bottom">
                                                     <h3 class="price float-left">$[[ ad.price ]]</h3>
                                                     <a href="#"
-                                                        class="btn btn-common float-right">View Details</a>
+                                                       class="btn btn-common float-right">View Details</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,7 +205,9 @@
                 },
                 created() {
                     // fetch categories
-                    fetch(`http://django-classified-ads.manjurulhoque.com/api/categories/`)
+                    fetch(`${this.domain}/api/categories/`, {
+                        mode: 'no-cors',
+                    })
                         .then(res => res.json())
                         .then(res => {
                             this.categories = res;
@@ -212,9 +215,11 @@
                         .catch(err => {
                             console.log(err);
                         });
-                    
+
                     // fetch ads
-                    fetch(`http://django-classified-ads.manjurulhoque.com/api/ads/`)
+                    fetch(`${this.domain}/api/ads/`, {
+                        mode: 'no-cors',
+                    })
                         .then(res => res.json())
                         .then(res => {
                             this.ads = res;
