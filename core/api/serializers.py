@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.template.defaultfilters import truncatechars
 from django.utils.html import strip_tags
+from rest_framework.reverse import reverse_lazy
 
 from ..models import *
 
@@ -26,6 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
 class AdSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     description = serializers.SerializerMethodField()
+    url = serializers.SerializerMethodField()
     first_image_or_default = serializers.ReadOnlyField()
 
     class Meta:
@@ -34,3 +36,6 @@ class AdSerializer(serializers.ModelSerializer):
 
     def get_description(self, obj):
         return truncatechars(strip_tags(obj.description), 100)
+
+    def get_url(self, obj):
+        return reverse_lazy('ads:ad.details', kwargs={'ad_id': obj.id})

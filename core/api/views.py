@@ -11,6 +11,7 @@ class AdListAPIView(ListAPIView):
     queryset = serializer_class.Meta.model.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = AdFilter
+    ordering_fields = ['id']
 
 
 class CategoryListAPIView(ListAPIView):

@@ -37,12 +37,10 @@
                         <div class="widget categories">
                             <h4 class="widget-title">All Categories</h4>
                             <ul class="categories-list">
-                                <li v-for="category in categories">
-                                    <a href="#">
-                                        <i class="lni-control-panel"></i>
-                                        [[ category.title ]] <span
-                                            class="category-counter">([[ category.total_ads ]])</span>
-                                    </a>
+                                <li v-for="category in categories" @click="filter(category)" style="cursor: pointer">
+                                    <i class="lni-control-panel"></i>
+                                    [[ category.title ]]
+                                    <span class="category-counter">([[ category.total_ads ]])</span>
                                 </li>
                             </ul>
                         </div>
@@ -58,7 +56,7 @@
 
                     <div class="product-filter">
                         <div class="short-name">
-                            <span>Showing (1 - 12 products of 7371 products)</span>
+                            <span>Showing all items</span>
                         </div>
                         <div class="Show-item">
                             <span>Show Items</span>
@@ -103,7 +101,7 @@
                                             </figure>
                                             <div class="feature-content">
                                                 <h4>
-                                                    <a href="#">[[ ad.title ]]</a>
+                                                    <a :href="[[ ad.url ]]">[[ ad.title ]]</a>
                                                 </h4>
                                                 <div class="meta-tag">
                                                     <span>
@@ -119,7 +117,7 @@
                                                 <p class="dsc">[[ ad.description ]]</p>
                                                 <div class="listing-bottom">
                                                     <h3 class="price float-left">$[[ ad.price ]]</h3>
-                                                    <a href="" class="btn btn-common float-right">View
+                                                    <a :href="[[ ad.url ]]" class="btn btn-common float-right">View
                                                         Details</a>
                                                 </div>
                                             </div>
@@ -171,17 +169,16 @@
                         </div>
                     </div>
 
-                    <div class="pagination-bar">
-                        <nav>
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-
+{#                    <div class="pagination-bar">#}
+{#                        <nav>#}
+{#                            <ul class="pagination justify-content-center">#}
+{#                                <li class="page-item"><a class="page-link active" href="#">1</a></li>#}
+{#                                <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+{#                                <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#                                <li class="page-item"><a class="page-link" href="#">Next</a></li>#}
+{#                            </ul>#}
+{#                        </nav>#}
+{#                    </div>#}
                 </div>
             </div>
         </div>
@@ -214,14 +211,22 @@
                             console.log(err);
                         })
                     // fetch ads
-                    axios.get(`/api/ads/`)
-                        .then((res) => {
-                            this.ads = res.data;
-                            console.log(this.ads);
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        })
+                    this.get_ads();
+                },
+                methods: {
+                    filter(category) {
+                        this.get_ads(category.id)
+                    },
+                    get_ads(id = '') {
+                        axios.get(`/api/ads/?category=${id}`)
+                            .then((res) => {
+                                console.log(res.data);
+                                this.ads = res.data;
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    }
                 }
             })
         })
