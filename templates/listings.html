@@ -192,6 +192,7 @@
 {% block scripts %}
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 
     <script type='text/javascript'>
         document.addEventListener('DOMContentLoaded', function () {
@@ -205,7 +206,14 @@
                 },
                 created() {
                     // fetch categories
-                    fetch(`${this.domain}/api/categories/`, {
+                    axios.get(`${this.domain}/api/categories/`)
+                        .then((res) => {
+                            this.categories = res.data;
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    {% comment %}fetch(`${this.domain}/api/categories/`, {
                         mode: 'no-cors',
                     })
                         .then(res => res.json())
@@ -214,10 +222,18 @@
                         })
                         .catch(err => {
                             console.log(err);
-                        });
+                        });{% endcomment %}
 
                     // fetch ads
-                    fetch(`${this.domain}/api/ads/`, {
+                    axios.get(`${this.domain}/api/ads/`)
+                        .then((res) => {
+                            this.ads = res.data;
+                            console.log(this.ads);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    {% comment %}fetch(`${this.domain}/api/ads/`, {
                         mode: 'no-cors',
                     })
                         .then(res => res.json())
@@ -227,7 +243,7 @@
                         })
                         .catch(err => {
                             console.log(err);
-                        })
+                        }){% endcomment %}
                 }
             })
         })
