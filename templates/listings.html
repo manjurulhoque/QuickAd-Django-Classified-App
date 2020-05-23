@@ -204,7 +204,7 @@
                 },
                 created() {
                     // fetch categories
-                    fetch(`${this.domain}/api/categories/`)
+                    fetch(`http://django-classified-ads.manjurulhoque.com/api/categories/`)
                         .then(res => res.json())
                         .then(res => {
                             this.categories = res;
@@ -214,7 +214,7 @@
                         });
                     
                     // fetch ads
-                    fetch(`${this.domain}/api/ads/`)
+                    fetch(`http://django-classified-ads.manjurulhoque.com/api/ads/`)
                         .then(res => res.json())
                         .then(res => {
                             this.ads = res;
