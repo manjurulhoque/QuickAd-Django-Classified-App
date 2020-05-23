@@ -200,11 +200,11 @@
                 data: {
                     categories: [],
                     ads: [],
-                    domain: '{{ request.META.HTTP_HOST }}'
+                    domain: '{{ request.scheme }}://{{ request.META.HTTP_HOST }}'
                 },
                 created() {
                     // fetch categories
-                    fetch("/api/categories/")
+                    fetch(`${this.domain}/api/categories/`)
                         .then(res => res.json())
                         .then(res => {
                             this.categories = res;
@@ -214,7 +214,7 @@
                         });
                     
                     // fetch ads
-                    fetch("/api/ads/")
+                    fetch(`${this.domain}/api/ads/`)
                         .then(res => res.json())
                         .then(res => {
                             this.ads = res;
