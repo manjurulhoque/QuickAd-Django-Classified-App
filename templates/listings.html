@@ -206,24 +206,13 @@
                 },
                 created() {
                     // fetch categories
-                    axios.get(`${this.domain}/api/categories/`)
+                    axios.get(`/api/categories/`)
                         .then((res) => {
                             this.categories = res.data;
                         })
                         .catch(err => {
                             console.log(err);
                         })
-                    {% comment %}fetch(`${this.domain}/api/categories/`, {
-                        mode: 'no-cors',
-                    })
-                        .then(res => res.json())
-                        .then(res => {
-                            this.categories = res;
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });{% endcomment %}
-
                     // fetch ads
                     axios.get(`/api/ads/`)
                         .then((res) => {
@@ -233,17 +222,6 @@
                         .catch(err => {
                             console.log(err);
                         })
-                    {% comment %}fetch(`${this.domain}/api/ads/`, {
-                        mode: 'no-cors',
-                    })
-                        .then(res => res.json())
-                        .then(res => {
-                            this.ads = res;
-                            console.log(this.ads);
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        }){% endcomment %}
                 }
             })
         })
