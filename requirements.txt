@@ -13,5 +13,5 @@ python-dateutil==2.9.0.post0
 pytz==2025.1
 six==1.17.0
 sqlparse==0.5.3
-urllib3==2.3.0
+urllib3==2.5.0
 whitenoise==6.9.0
